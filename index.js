@@ -17,10 +17,18 @@ function displayResults(responseJson) {
   $('#results-list').empty();
   // iterate through the items array
   for (let i = 0; i < responseJson.data.length; i++){
+    let results = '<p>';
+    for (let j=1; j < 4; j++) {
+      let line = `line${j}`;
+      if (!responseJson.data[i].addresses[1][line])
+      {break};
+      results = results.concat(`${responseJson.data[i].addresses[1][line]}<br>`);
+    };
+
     $('#results-list').append(
       `<li><h3>${responseJson.data[i].fullName}</h3>
       <p>${responseJson.data[i].description}</p>
-      <p class="line1">${responseJson.data[i].addresses[1].line1}<br>
+      ${results}
       ${responseJson.data[i].addresses[1].city}, ${responseJson.data[i].addresses[1].stateCode} ${responseJson.data[i].addresses[1].postalCode}</p>
       <a href="${responseJson.data[i].url}"'>${responseJson.data[i].url}</a></li>`);
 };
